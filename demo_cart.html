@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Page</title>
+</head>
+<body>
+
+  <div id="product-details">
+    <h2>Product Name: Example Product</h2>
+    <p>Price: $20.00</p>
+    <button id="addToCartBtn" onclick="addToCart()">Add to Cart</button>
+  </div>
+
+  <script>
+    // Sample product details
+    const product = {
+      id: 1,
+      name: "Example Product",
+      price: 20.00
+    };
+
+    // Function to add product to cart
+    function addToCart() {
+      // Check if there is a cart in localStorage
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Check if the product is already in the cart
+      const existingProduct = cart.find(item => item.id === product.id);
+
+      if (existingProduct) {
+        // If the product is already in the cart, update the quantity
+        existingProduct.quantity += 1;
+      } else {
+        // If the product is not in the cart, add it
+        cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: 1
+        });
+      }
+
+      // Save the updated cart back to localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      // Optionally, you can provide feedback to the user
+      alert('Product added to cart!');
+    }
+  </script>
+
+</body>
+</html>
